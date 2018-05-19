@@ -17,7 +17,7 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ### Creational Design Patterns: 
 
- - Builder, 
+ - Builder
  - Factories
    - Factory Method  
    - Abstract Factory 

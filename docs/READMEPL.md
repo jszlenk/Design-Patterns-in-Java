@@ -27,7 +27,7 @@ Wzorce możemy podzielić na trzy rodziny:
 
 ### Creational Design Patterns: 
 
- - Builder, 
+ - Builder
  - Factories
    - Factory Method  
    - Abstract Factory 
