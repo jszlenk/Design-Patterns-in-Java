@@ -61,6 +61,6 @@ Wzorce możemy podzielić na trzy rodziny:
 
 ------
 
-### UML:
+### UML
 
 :warning: Zobacz **[Gang of Four Design Patterns Reference Sheet](http://www.blackwasp.co.uk/GangOfFour.aspx)**
