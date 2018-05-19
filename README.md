@@ -9,7 +9,9 @@ In software engineering, a software design pattern is a general, reusable soluti
 
 Object-oriented design patterns typically show relationships and interactions between classes or objects, without specifying the final application classes or objects that are involved. Patterns that imply mutable state may be unsuited for functional programming languages, some patterns can be rendered unnecessary in languages that have built-in support for solving the problem they are trying to solve, and object-oriented patterns are not necessarily suitable for non-object-oriented languages.
 
-Design patterns may be viewed as a structured approach to computer programming intermediate between the levels of a programming paradigm and a concrete algorithm. [From Wikipedia](https://en.wikipedia.org/wiki/Software_design_pattern)
+Design patterns may be viewed as a structured approach to computer programming intermediate between the levels of a programming paradigm and a concrete algorithm. 
+
+[Wikipedia](https://en.wikipedia.org/wiki/Software_design_pattern)
 
 ------
 

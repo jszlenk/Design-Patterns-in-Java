@@ -12,9 +12,9 @@ Zamiast skupiać się na funkcjonowaniu poszczególnych elementów, wzorce proje
 
 Wzorce projektowe mogą przyspieszyć proces rozwoju oprogramowania przez dostarczenie wypróbowanych rozwiązań dla problemów, które mogą nie być oczywiste na początku procesu projektowego. Często zagadnienia te wiążą się z ewolucją oczekiwań względem projektowanego systemu: rozszerzeniem jego funkcjonalności, zmianą sposobu i formatu wprowadzanych danych czy dostosowaniem aplikacji do różnych klas użytkowników. Nieuwzględnienie ich na początku procesu rozwoju produktu programistycznego powoduje często konieczność gruntownego przebudowywania zaawansowanego lub gotowego już oprogramowania.
 
-Klasyfikacja podstawowa
+### Klasyfikacja podstawowa
 
-### Wzorce możemy podzielić na trzy rodziny:
+Wzorce możemy podzielić na trzy rodziny:
 
    - kreacyjne (konstrukcyjne) – opisujące proces tworzenia nowych obiektów; ich zadaniem jest tworzenie, inicjalizacja oraz konfiguracja obiektów, klas oraz innych typów danych;
    - strukturalne – opisujące struktury powiązanych ze sobą obiektów;
