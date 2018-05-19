@@ -1,4 +1,4 @@
-# Design Patterns in Java
+# Wzorce Projekotwe w Java
 
 ![Algorithms](https://img.shields.io/badge/Design--Patterns-Implementation--in--Java-green.svg?longCache=true&style=for-the-badge)
 
@@ -58,6 +58,8 @@ Klasyfikacja podstawowa
  - Strategy 
  - Template Method 
  - Visitor
+
+------
 
 ### UML:
 
