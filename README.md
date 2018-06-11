@@ -22,7 +22,7 @@ Design patterns may be viewed as a structured approach to computer programming i
    - Factory Method  
    - Abstract Factory 
  - Prototype 
- - Singleton
+ - [Singleton]()
 
 ### Structrural Design Patterns:
 
