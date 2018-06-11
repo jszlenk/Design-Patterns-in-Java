@@ -32,7 +32,8 @@ class SingletonDatabase {
                     city.get(0).trim(), Integer.parseInt(city.get(1))
             ));
         } catch (Exception e) {
-            System.out.println("WARNING! Path for capitals.txt file is: " + getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+            System.out.println("WARNING! Path for capitals.txt file is: " +
+                    getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
             System.err.println(e.getMessage());
         }
     }
