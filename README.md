@@ -51,6 +51,6 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ------
 
-### UML
+#### UML
 
 :warning: See [Gang of Four Design Patterns Reference Sheet](http://www.blackwasp.co.uk/GangOfFour.aspx)
