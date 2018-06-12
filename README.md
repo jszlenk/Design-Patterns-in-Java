@@ -15,7 +15,7 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ------
 
-#### Creational Design Patterns: 
+### Creational Design Patterns: 
 
  - Builder
  - Factories
@@ -24,7 +24,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Prototype 
  - **[Singleton](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Singleton)**
 
-#### Structrural Design Patterns:
+### Structrural Design Patterns:
 
  - Adapter
  - Bridge
@@ -34,7 +34,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Flyweight 
  - Proxy
 
-#### Behavioral Design Patterns:
+### Behavioral Design Patterns:
 
  - Chain of Responsibility 
  - Command
@@ -51,6 +51,6 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ------
 
-#### UML
+### UML
 
 :warning: See [Gang of Four Design Patterns Reference Sheet](http://www.blackwasp.co.uk/GangOfFour.aspx)
