@@ -20,13 +20,12 @@ class DrinkMachine {
 
             for (int i = 0; i < s.length(); i++) {
                 if (s.charAt(i) == 'L') {
-                      factoryName = "" + Character.toUpperCase(s.charAt(0)) + s.substring(1, 6).toLowerCase()
-                              + Character.toUpperCase(s.charAt(6)) +  s.substring(7, 11).toLowerCase() ;
+                    factoryName = "" + Character.toUpperCase(s.charAt(0)) + s.substring(1, 6).toLowerCase()
+                            + Character.toUpperCase(s.charAt(6)) + s.substring(7, 11).toLowerCase();
                 }
             }
 
             Class<?> factory = Class.forName("CreationalDesignPatterns.Factory.AbstractFactory." + factoryName + "Factory");
-
             factories.put(drink, (DrinkFactory) factory.getDeclaredConstructor().newInstance());
         }
 
