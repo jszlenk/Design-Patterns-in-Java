@@ -18,6 +18,14 @@ class DrinkMachine {
         for (AvailableDrink drink : AvailableDrink.values()) {
             String s = drink.toString();
             String factoryName = "" + Character.toUpperCase(s.charAt(0)) + s.substring(1).toLowerCase();
+
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == 'L') {
+                      factoryName = "" + Character.toUpperCase(s.charAt(0)) + s.substring(1, 6).toLowerCase()
+                              + Character.toUpperCase(s.charAt(6)) +  s.substring(7, 11).toLowerCase() ;
+                }
+            }
+
             Class<?> factory = Class.forName("CreationalDesignPatterns.Factory.AbstractFactory." + factoryName + "Factory");
             factories.put(drink, (DrinkFactory) factory.getDeclaredConstructor().newInstance());
         }
@@ -45,13 +53,15 @@ class DrinkMachine {
         while (true) {
             String s;
             int i, amount;
+
             if ((s = reader.readLine()) != null
                     && (i = Integer.parseInt(s)) >= 0
                     && i < namedFactories.size()) {
+
                 System.out.println("Specify amount: ");
                 s = reader.readLine();
+
                 if (s != null && (amount = Integer.parseInt(s)) > 0) {
-                    System.out.println("X " + namedFactories.get(i).getValue());
                     return namedFactories.get(i).getValue().prepare(amount);
                 }
             }

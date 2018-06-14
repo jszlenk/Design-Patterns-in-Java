@@ -1,6 +1,6 @@
 package CreationalDesignPatterns.Factory.AbstractFactory;
 
-public class CoffeelatteFactory implements DrinkFactory {
+public class CoffeeLatteFactory implements DrinkFactory {
     @Override
     public HotDrink prepare(int amount)
     {
