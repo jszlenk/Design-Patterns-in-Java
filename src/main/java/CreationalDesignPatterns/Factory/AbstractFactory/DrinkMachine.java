@@ -11,7 +11,6 @@ import java.util.*;
 class DrinkMachine {
 
     private Dictionary<AvailableDrink, DrinkFactory> factories = new Hashtable<>();
-
     private List<Pair<String, DrinkFactory>> namedFactories = new ArrayList<>();
 
     DrinkMachine() throws Exception {
@@ -27,6 +26,7 @@ class DrinkMachine {
             }
 
             Class<?> factory = Class.forName("CreationalDesignPatterns.Factory.AbstractFactory." + factoryName + "Factory");
+
             factories.put(drink, (DrinkFactory) factory.getDeclaredConstructor().newInstance());
         }
 
