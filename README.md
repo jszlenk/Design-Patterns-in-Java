@@ -31,7 +31,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Composite
  - Decorator
  - Façade
- - Flyweight 
+  - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
  - Proxy
 
 ### Behavioral Design Patterns:
