@@ -17,7 +17,7 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ### Creational Design Patterns: 
 
- - Builder
+ - **[Builder](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Builder)**
  - Factories
    - **[Factory Method](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Factory/FactoryMethod)**  
    - **[Abstract Factory](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Factory/AbstractFactory)** 
@@ -31,7 +31,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Composite
  - Decorator
  - Façade
-  - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
+ - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
  - Proxy
 
 ### Behavioral Design Patterns:
@@ -43,7 +43,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Mediator 
  - Memento
  - Null Object 
-  - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
+ - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
  - State 
  - Strategy 
  - Template Method 
