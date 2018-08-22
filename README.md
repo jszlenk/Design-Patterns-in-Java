@@ -26,7 +26,7 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ### Structrural Design Patterns:
 
- - Adapter
+ - **[Adapter](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Adapter)**
  - Bridge
  - Composite
  - Decorator
