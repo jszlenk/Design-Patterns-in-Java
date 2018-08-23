@@ -29,7 +29,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - **[Adapter](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Adapter)**
  - Bridge
  - Composite
- - Decorator
+ - **[Decorator](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Decorator)**
  - Façade
  - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
  - Proxy
