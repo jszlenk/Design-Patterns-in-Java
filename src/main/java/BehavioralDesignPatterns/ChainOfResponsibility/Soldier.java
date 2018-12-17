@@ -25,8 +25,7 @@ public class Soldier {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Soldier{name=" + name + ", attack=" + getAttack() + ", defense=" + getDefense() + "}";
     }
 }

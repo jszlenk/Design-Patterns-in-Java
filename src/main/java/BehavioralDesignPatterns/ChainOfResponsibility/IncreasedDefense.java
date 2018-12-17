@@ -1,7 +1,6 @@
 package BehavioralDesignPatterns.ChainOfResponsibility;
 
 class IncreasedDefense extends SoldierModifier {
-
     IncreasedDefense(Game game, Soldier soldier) {
         super(game, soldier);
 

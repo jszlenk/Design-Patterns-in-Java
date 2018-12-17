@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 class Event<TArgs> {
-
     private int index = 0;
     private Map<Integer, Consumer<TArgs>> handlers = new HashMap<>();
 

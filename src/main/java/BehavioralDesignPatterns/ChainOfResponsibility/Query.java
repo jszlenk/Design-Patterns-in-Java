@@ -1,7 +1,6 @@
 package BehavioralDesignPatterns.ChainOfResponsibility;
 
 class Query {
-
     String soliderName;
 
     enum Argument {
