@@ -36,7 +36,7 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ### Behavioral Design Patterns:
 
- - Chain of Responsibility 
+ - **[Chain of Responsibility](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/ChainOfResponsibility)** 
  - Command
  - Interpreter
  - Iterator 
