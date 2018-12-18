@@ -36,8 +36,8 @@ Design patterns may be viewed as a structured approach to computer programming i
 
 ### Behavioral Design Patterns:
 
- - **[Chain of Responsibility](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/ChainOfResponsibility)** 
- - Command
+ - **[Chain of Responsibility](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/ChainOfResponsibility)**
+ - **[Command](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Command)**
  - Interpreter
  - Iterator 
  - Mediator 
@@ -46,7 +46,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
  - State 
  - **[Strategy](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Strategy)**
- - Template Method 
+ - **[Template Method ](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/TemplateMethod)**
  - Visitor
 
 ------
