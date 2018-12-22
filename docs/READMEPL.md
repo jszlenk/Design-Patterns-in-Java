@@ -69,9 +69,9 @@ Wzorce możemy podzielić na trzy rodziny:
 ### Obrazy
 
 
-![alt GangOfFour Patterns](docs/images/GangOfFour-1.png)
+![alt text](docs/images/GangOfFour-1.png)
 
-![alt GangOfFour Patterns](docs/images/GangOfFour-2.png)
+![alt text](docs/images/GangOfFour-2.png)
 
 ### UML
 
