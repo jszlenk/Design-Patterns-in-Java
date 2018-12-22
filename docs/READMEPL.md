@@ -55,11 +55,23 @@ Wzorce możemy podzielić na trzy rodziny:
  - Null Object 
  - Observer 
  - State 
+ 
+   Stan – czynnościowy wzorzec projektowy, który umożliwia zmianę zachowania obiektu poprzez zmianę jego stanu wewnętrznego. Innymi słowy – uzależnia sposób działania obiektu od stanu w jakim się aktualnie znajduje.
+   
+   Rozważmy aplikację, której zadaniem jest rysowanie różnych obiektów za pomocą różnych komponentów. Aplikacja taka może posiadać abstrakcyjny interfejs reprezentujący narzędzie do rysowania implementowany przez klasy konkretnych narzędzi. Klasa główna będzie wywoływać odpowiednie narzędzie do rysowania - w zależności od tego w jakim będzie stanie. 
+ 
  - Strategy 
  - Template Method 
  - Visitor
 
 ------
+
+### Obrazy
+
+
+![alt GangOfFour Patterns](docs/images/GangOfFour-1.png)
+
+![alt GangOfFour Patterns](docs/images/GangOfFour-2.png)
 
 ### UML
 

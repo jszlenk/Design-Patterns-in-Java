@@ -41,10 +41,10 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Interpreter
  - Iterator 
  - Mediator 
- - Memento
+ - **[Memento](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Memento)**
  - Null Object 
  - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
- - State 
+ - **[State](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/State)**
  - **[Strategy](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Strategy)**
  - **[Template Method ](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/TemplateMethod)**
  - Visitor
