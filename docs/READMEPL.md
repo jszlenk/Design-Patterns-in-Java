@@ -62,6 +62,15 @@ Wzorce możemy podzielić na trzy rodziny:
  
  - Strategy 
  - Template Method 
+ 
+   Metoda szablonowa – czynnościowy wzorzec projektowy. Jego zadaniem jest zdefiniowanie metody, będącej szkieletem algorytmu. Algorytm ten może być następnie dokładnie definiowany w klasach pochodnych. Niezmienna część algorytmu zostaje opisana w metodzie szablonowej, której klient nie może nadpisać. W metodzie szablonowej wywoływane są inne metody, reprezentujące zmienne kroki algorytmu. Mogą one być abstrakcyjne lub definiować domyślne zachowania. Klient, który chce skorzystać z algorytmu, może wykorzystać domyślną implementację bądź może utworzyć klasę pochodną i nadpisać metody opisujące zmienne fragmenty algorytmu. Najczęściej metoda szablonowa ma widoczność publiczną, natomiast metody do przesłonięcia mają widoczność chronioną lub prywatną, tak, aby klient nie mógł ich użyć bezpośrednio. Inna popularna nazwa tego wzorca to niewirtualny interfejs (ang. non virtual interface). Mimo zbieżnej nazwy, wzorzec ten nie ma niczego wspólnego z szablonami, stosowanymi w programowaniu uogólnionym. 
+ 
+   Przykładem zastosowania tego wzorca są biblioteki, wspomagające automatyzację testów jednostkowych. Biblioteka jUnit definiuje ogólny algorytm wykonywania testów. Składa się on z trzech podstawowych kroków: przygotowania środowiska do wykonania testów, wykonania testów, a następnie posprzątania po wykonanych testach. Kroki te reprezentowane są przez metody setUp, runTest oraz tearDown. Wymienione metody wykonywane są w niezmiennej kolejności przez metodę run, której klient nie może zmienić. Dzięki temu, użytkownik nie może zmieniać kolejności podstawowych bloków algorytmu, może jednak nadpisać metody setUp, runTest oraz tearDown, co pozwala mu dostosować testy do swoich potrzeb. 
+ 
+   Wzorzec składa się z co najmniej dwóch klas. Klasa podstawowa AbstractClass definiuje szkielet algorytmu i jest bazą, z której korzysta klient. Składa się z metody szablonowej templateMethod, która jest publiczna i której klient nie ma możliwości rozszerzyć, oraz z metod prywatnych (lub chronionych) method1 oraz method2, które są wykorzystywane w metodzie templateMethod i zawierają domyślną implementację algorytmu. Klient chcący zmienić któryś z kroków algorytmu, musi zdefiniować klasę pochodną ConcreteClass, w której przedefiniuje jedną bądź wszystkie prywatne metody, implementujące kolejne kroki algorytmu. 
+ 
+   Zaletą wzorca jest możliwość zdefiniowania algorytmu składającego się z niezmiennej sekwencji kroków z jednoczesną możliwością modyfikacji wybranych przez klienta kroków. Stosowanie tego wzorca często jest określane jako "zasada Hollywood", która mówi "nie dzwoń do nas, my zadzwonimy do ciebie" – jest to nawiązanie do sytuacji, w której to klasa bazowa wywołuje metody klasy pochodnej, a nie odwrotnie. 
+ 
  - Visitor
 
 ------
