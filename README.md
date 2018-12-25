@@ -30,9 +30,9 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Bridge
  - Composite
  - **[Decorator](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Decorator)**
- - Façade
+ - **[Façade](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Fa%C3%A7ade)**
  - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
- - Proxy
+ - **[Proxy](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Proxy)**
 
 ### Behavioral Design Patterns:
 
@@ -42,12 +42,12 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Iterator 
  - Mediator 
  - **[Memento](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Memento)**
- - Null Object 
+ - **[Null Object](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/NullObject)**
  - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
  - **[State](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/State)**
  - **[Strategy](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Strategy)**
  - **[Template Method ](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/TemplateMethod)**
- - Visitor
+ - **[Visitor](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Visitor)**
 
 ------
 
