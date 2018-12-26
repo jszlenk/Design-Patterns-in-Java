@@ -5,12 +5,11 @@ import java.util.List;
 
 class Lexing {
 
-    List<Token> converter(java.lang.String input) {
+    private ArrayList<Token> result = new ArrayList<>();
 
-        ArrayList<Token> result = new ArrayList<>();
+    List<Token> converter(String input) {
 
         for (int i = 0; i < input.length(); ++i) {
-
             switch (input.charAt(i)) {
                 case '+':
                     result.add(new Token(Type.PLUS, "+"));
@@ -28,7 +27,6 @@ class Lexing {
                     StringBuilder stringBuilder = new StringBuilder("" + input.charAt(i));
 
                     for (int j = i + 1; j < input.length(); ++j) {
-
                         if (Character.isDigit(input.charAt(j))) {
                             stringBuilder.append(input.charAt(j));
                             ++i;
