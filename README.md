@@ -21,14 +21,14 @@ Design patterns may be viewed as a structured approach to computer programming i
  - Factories
    - **[Factory Method](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Factory/FactoryMethod)**  
    - **[Abstract Factory](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Factory/AbstractFactory)** 
- - Prototype 
+ - **[Prototype](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Prototype)** 
  - **[Singleton](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/CreationalDesignPatterns/Singleton)**
 
 ### Structrural Design Patterns:
 
  - **[Adapter](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Adapter)**
  - **[Bridge](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Bridge)**
- - Composite
+ - **[Composite](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Composite)**
  - **[Decorator](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Decorator)**
  - **[Façade](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Fa%C3%A7ade)**
  - **[Flyweight](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/StructruralDesignPatterns/Flyweight)**
