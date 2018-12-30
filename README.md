@@ -46,7 +46,7 @@ Design patterns may be viewed as a structured approach to computer programming i
  - **[Observer](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Observer)**
  - **[State](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/State)**
  - **[Strategy](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Strategy)**
- - **[Template Method ](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/TemplateMethod)**
+ - **[Template Method](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/TemplateMethod)**
  - **[Visitor](https://github.com/jszlenk/Design-Patterns-in-Java/tree/master/src/main/java/BehavioralDesignPatterns/Visitor)**
 
 ------
