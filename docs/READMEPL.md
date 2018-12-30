@@ -41,8 +41,24 @@ Wzorce możemy podzielić na trzy rodziny:
  - Composite
  - Decorator
  - Façade
- - Flyweight 
- - Proxy
+ 
+**Flyweight**
+
+  Pyłek (ang. Flyweight) – strukturalny wzorzec projektowy, którego celem jest zmniejszenie wykorzystania pamięci poprzez poprawę efektywności obsługi dużych obiektów zbudowanych z wielu mniejszych elementów poprzez współdzielenie wspólnych małych elementów. Należy do grupy wzorców skatalogowanych przez Gang of Four. 
+
+  Wzorzec Pyłek stosuje się tam, gdzie jedna klasa ma wiele egzemplarzy, a każdy z tych egzemplarzy może być sterowany w ten sam sposób. Przykładowo tenże wzorzec można zastosować w programie wspomagającym modelowanie przestrzenne terenu. Jednym z wielu elementów, które muszą się w nim znaleźć są obiekt reprezentujący drzewo. Zakładamy, że obiekt taki posiada informacje o wyglądzie drzewa oraz jakieś inne jego cechy, przy czym także jego wysokości oraz jego współrzędne położenia. Podczas modelowania wielkich kompleksów zieleni złożonych z wielu egzemplarzy drzewa program może zacząć działać niezadowalająco wolno. Aby uporać się z takim problemem można zastosować wzorzec Pyłek. Po zastosowaniu tego wzorca projektowego zamiast tworzyć indywidualny egzemplarz klasy (obiekt) dla każdego drzewa możliwe jest stworzenie kompleksowego obiektu, który będzie w sobie zawierał informacje o wszystkich drzewach renderowanych na modelowanym terenie. W takim obiekcie z racji tego, że wszystkie renderowane drzewa mają pewne cechy wspólne, takie jak np. wygląd, informacje te będą zapisane tylko raz (choć drzew może być tysiące), a zwielokrotniane będą jedynie informacje różne dla każdego drzewa tak jak np. współrzędne i wysokość. Sposób wykonania tej idei oraz jej implementacja zależy od woli programisty. 
+
+  Istotą wzorca jest podział danych przechowywanych w ciężkim obiekcie na wewnętrzne i zewnętrzne. Do klasy danych wewnętrznych wybierane są te składowe ciężkiej klasy pierwotnej, których wartości często się powtarzają. Pozostałe składowe stanowią dane zewnętrzne. Po ustaleniu podziału zamiast ciężkich obiektów wzorzec wprowadza odpowiadające im obiekty klientów oraz tzw. obiekty pyłków. Obiekty pyłków są tworzone z wybranych wcześniej danych wewnętrznych. Każdy z nich jest współdzielony przez wielu klientów i nie można go modyfikować. Dane zewnętrzne, unikatowe dla każdego obiektu klienta, są dostarczane obiektowi pyłku poprzez określone metody. Wzorzec zawiera dwóch uczestników - Fabrykę Pyłków i Pyłek. Klient nie tworzy egzemplarzy typu Pyłek samodzielnie, a jedynie wysyła do Fabryki żądanie ich udostępnienia. Fabryka zwraca Klientowi istniejący Pyłek lub tworzy nowy, jeśli żaden egzemplarz tej klasy jeszcze nie istnieje. 
+  
+  Ideą wzorca projektowego pyłek jest stworzenie prostego mechanizmu współdzielenia obiektu o niewielkim rozmiarze przez wiele obiektów w celu zwiększenia wydajności systemu pod względem zużycia pamięci. Zamiast zapisywać oddzielnie kilka olbrzymich obiektów, dzielmy owe obiekty na mniejsze składowe i elementy które się w nich powtarzają zapisujemy tylko raz,a nie kilka razy. Mówiąc inaczej pyłek ma na celu udostępnianie pojedynczego małego obiektu wielu klientom(dużym obiektom). Implementując ten wzorzec projektowy należy rozwiązać problem wspólnego dostępu do współdzielonych danych. Jednym ze sposobów realizacji tego mechanizmu jest podział danych przechowywanych w atrybutach obiektów (te mniejsze elementy) na współdzielone dane wewnętrzne intrinsicState oraz niewspółdzielone, unikatowe dla każdego obiektu dane zewnętrzne allState. Czyli dwie grupy złożone z małych elementów.
+  
+  Wzorzec ten można formalnie zrealizować za pomocą trzech głównych elementów: 
+            
+   - elementu abstrakcyjnego Flyweight definiującego operacje służące do przyjmowania i odtwarzania stanu zewnętrznego obiektu opisywanego przez klasę UnsharedConcreteFlyweight
+   - obiektu tworzonego na bazie klasy ConcreteFlyweight przechowującego stan wewnętrzny (współdzielony) obiektu, który dodatkowo jest niezależny od kontekstu wywołania
+   - fabryki FlyweightFactory, której zadaniem jest kreowanie i składowanie obiektów realizujących interfejs Flyweight
+
+**Proxy**
 
 ### Behavioral Design Patterns:
 
