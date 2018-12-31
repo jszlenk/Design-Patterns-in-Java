@@ -27,20 +27,124 @@ Wzorce możemy podzielić na trzy rodziny:
 
 ### Creational Design Patterns: 
 
- - Builder
- - Factories
-   - Factory Method  
-   - Abstract Factory 
- - Prototype 
- - Singleton
+**Builder**
+**Factories**
+**Prototype** 
+
+  Prototyp – kreacyjny wzorzec projektowy, którego celem jest umożliwienie tworzenia obiektów danej klasy bądź klas z wykorzystaniem już istniejącego obiektu, zwanego prototypem. Głównym celem tego wzorca jest uniezależnienie systemu od sposobu w jaki tworzone są w nim produkty.
+  
+  Omawiany wzorzec stosujemy między innymi wtedy, gdy nie chcemy tworzyć w budowanej aplikacji podklas obiektu budującego (jak to jest w przypadku wzorca fabryki abstrakcyjnej). Wzorzec ten stosujemy podczas stosowania klas specyfikowanych podczas działania aplikacji.
+  
+  Wzorzec prototypu określa rodzaj obiektów do tworzenia za pomocą prototypowej instancji. Prototypy nowych produktów są często budowane przed pełną produkcją, ale w tym przykładzie, prototyp jest bierny i nie bierze udziału w kopiowaniu siebie samego. Przykładem aktywnego prototypu (czyli biorącego udział w kopiowaniu siebie samego) jest biologiczny podział jednej komórki w dwie identyczne. Wtedy mamy do czynienia z klonowaniem.
+  
+  Czasem wzorce konstrukcyjne pokrywają się. Są przypadki, gdzie odpowiedni byłby zarówno Prototyp, jak i Fabryka Abstrakcyjna. W innych przypadkach te wzorce nawzajem się uzupełniają: Fabryka abstrakcyjna mogłaby przechowywać zbiór Prototypów, które mogłaby klonować i zwracać jako obiekt produktu. Fabryka abstrakcyjna, Budowniczy i Prototyp mogą w swych implementacjach używać wzorca Singletonu. Klasy Fabryki abstrakcyjnej są często implementowane razem z Metodami fabrykującymi (tworzenie przez dziedziczenie), ale mogą być też implementowane przy użyciu Prototypu (tworzenie przez delegację). Często projekty startują wraz z użyciem Metod fabrykujących (które są mniej skomplikowane, bardziej elastyczne i z szybko powiększającą się liczbą podklas) i ewoluują w kierunku Fabryki abstrakcyjnej, Prototypu lub Budowniczego (o większych możliwościach i bardziej złożonych) wtedy, gdy projektant uzmysłowi sobie potrzebę stosowania rozwiązań o większej mocy. Prototypy nie wymagają "podklasowania", ale wymagają operacji inicjalizacji. Metody fabrykujące wymagają "podklasowania" ale nie wymagają inicjalizacji. Projekty, które intensywnie używają wzorca Kompozytu i Dekoratora, mogą równie dobrze odnieść korzyść ze stosowania Prototypu. Praktyczną wskazówką na to, kiedy może być potrzebnym używanie metody clone(), jest konieczność tworzenia prawdziwej kopii (ang. true copy) innej instancji w czasie wykonywania programu. Prawdziwa kopia to taka, w której skopiowany obiekt ma wszystkie swe pola identyczne z pierwowzorem. Gdy używa się operatora new, to wtedy te pola mają wartości początkowe. Przykładowo, jeśli projektuje się system do przeprowadzania transakcji bankowych, to wtedy potrzebna jest taka kopia obiektu, która przechowa dane konta, wykona transakcje na tej kopii i zamieni tę kopię z oryginałem. W takim przypadku potrzebna jest raczej metoda clone() niż operator new. 
+
+**Singleton**
+
+  Singleton – kreacyjny wzorzec projektowy, którego celem jest ograniczenie możliwości tworzenia obiektów danej klasy do jednej instancji oraz zapewnienie globalnego dostępu do stworzonego obiektu. Niekiedy wzorzec uogólnia się do przypadku wprowadzenia pewnej maksymalnej liczby obiektów, jakie mogą istnieć w systemie. Niektórzy programiści uznają go za antywzorzec, ponieważ łamie zasady projektowania obiektowego, często bywa nadużywany lub sprowadza się do stworzenia obiektowego zamiennika dla zmiennej globalnej.
+  
+  Rozważmy aplikację prowadzącą dla celów diagnostycznych dziennik zdarzeń. Poszczególne komponenty dodają wpis do dziennika, przekazując mu jego treść, natomiast dziennik określa, gdzie faktycznie zostanie on zapisany.
+  
+      Każdy komponent może uzyskać w dowolnym momencie dostęp do dziennika, zatem musi on być dostępny globalnie.
+      To dziennik decyduje o tym, gdzie wpis zostanie faktycznie zapisany. Komponent musi jedynie przekazać jego treść. Oznacza to istnienie pojedynczej instancji dziennika.
+      Z dziennika mogą również korzystać komponenty wielokrotnego użytku, zatem nie powinny one być zależne od mechanizmów udostępniania zasobów specyficznych dla danej aplikacji.
+  
+  Możemy to zapewnić, implementując w dzienniku wzorzec singleton tak, aby mógł on we własnym zakresie zarządzać dostępem do siebie samego.
+  
+  Singleton implementuje się przez stworzenie klasy, która posiada statyczną metodę, która najpierw sprawdza, czy istnieje już instancja tej klasy, w razie potrzeby tworząc ją. Następnie instancja zwracana jest przez referencję. Instancję przechowuje się w prywatnym lub chronionym, statycznym polu, do którego dostęp ma tylko opisana wyżej metoda, która jest jedyną drogą pozyskania instancji obiektu singletonu – aby uniemożliwić tworzenie dodatkowych instancji, konstruktor klasy deklaruje się jako prywatny lub chroniony.
+  
+  Cały proces jest niewidoczny dla użytkownika. Nie musi on wiedzieć, czy instancja już istnieje czy dopiero jest tworzona. Jeśli żaden komponent nie będzie wykorzystywać klasy, system nie przydzieli jej zasobów.
+  
+  Zalety:
+  
+      singleton nie musi ograniczać się do obsługi pojedynczej instancji klasy – przy niewielkiej zmianie podejścia można za jego pomocą zarządzać także większą liczbą obiektów,
+      klasa zaimplementowana z użyciem wzorca singleton może samodzielnie kontrolować liczbę swoich instancji istniejących w systemie,
+      proces pobierania instancji klasy jest niewidoczny dla użytkownika. Nie musi on wiedzieć, czy w chwili wywołania metody instancja istnieje czy dopiero jest tworzona,
+      tworzenie nowej instancji ma charakter leniwy, tj. zachodzi dopiero przy pierwszej próbie użycia. Jeśli żaden komponent nie zdecyduje się korzystać z klasy, jej instancji nie będą niepotrzebnie przydzielone zasoby.
+  
+  Wady:
+  
+      brak elastyczności, bo już na poziomie kodu jest na sztywno określona liczba instancji, jakie mogą istnieć w systemie
+      poważnie utrudnia testowanie aplikacji przez wprowadzenie do niej globalnego stanu[5]
+      łamie zasadę jednej odpowiedzialności
+      łamie zasadę otwarte-zamknięte
+      nie można go rozszerzyć
+  
+  Singleton musi być ostrożnie stosowany w systemach wielowątkowych. Zażądanie instancji klasy przez dwa wątki równocześnie może doprowadzić do utworzenia dwóch niezależnych instancji, dlatego metoda dostępowa powinna być wtedy zaimplementowana z wykorzystaniem wzajemnego wykluczania.
 
 ### Structrural Design Patterns:
 
- - Adapter
- - Bridge
- - Composite
- - Decorator
- - Façade
+**Adapter**
+
+  Adapter (także: opakowanie, ang. wrapper) – strukturalny wzorzec projektowy, którego celem jest umożliwienie współpracy dwóm klasom o niekompatybilnych interfejsach. Adapter przekształca interfejs jednej z klas na interfejs drugiej klasy. Innym zadaniem omawianego wzorca jest opakowanie istniejącego interfejsu w nowy.
+  
+  Wzorzec adaptera stosowany jest najczęściej w przypadku, gdy wykorzystanie istniejącej klasy jest niemożliwe ze względu na jej niekompatybilny interfejs. Drugim powodem użycia może być chęć stworzenia klasy, która będzie współpracowała z klasami o nieokreślonych interfejsach.
+  
+  Istnieją dwa warianty wzorca Adapter: _klasowy, obiektowy_.
+  
+  Różnią się one nieznacznie budową oraz właściwościami. Do stworzenia adaptera klasowego wykorzystywane jest wielokrotne dziedziczenie. Klasa adaptera dziedziczy prywatnie po klasie adaptowanej oraz publicznie implementuje interfejs klienta. W przypadku tego adaptera wywołanie funkcji jest przekierowywane do bazowej klasy adaptowanej.
+  
+  W przypadku adaptera obiektowego klasa adaptera dziedziczy interfejs, którym posługuje się klient oraz zawiera w sobie klasę adaptowaną. Rozwiązanie takie umożliwia oddzielenie klasy klienta od klasy adaptowanej. Komplikuje to proces przekazywania żądania: klient wysyła je do adaptera wywołując jedną z jego metod. Następnie adapter konwertuje wywołanie na jedno bądź kilka wywołań i kieruje je do obiektu/obiektów adaptowanych. Te przekazują wyniki działania bezpośrednio do klienta.
+
+  Zadaniem adaptera dwukierunkowego jest adaptowanie interfejsów klienta oraz adaptowanego. Dzięki takiemu rozwiązaniu każda z klas może pełnić zarówno funkcję klienta jak i adaptowanego. Ten typ adaptera można zaimplementować tylko za pomocą wielokrotnego dziedziczenia.
+  
+  Konsekwencje stosowania wzorca są różne w zależności od tego, z jakim typem mamy do czynienia. W przypadku typu klasowego są to:
+  
+      brak możliwości adaptowania klasy wraz z jej podklasami,
+      możliwość przeładowania metod obiektu adaptowanego.
+  
+  Do konsekwencji stosowania adaptera obiektowego należą:
+  
+      możliwość adaptacji klasy wraz z jej podklasami (związane jest to z wykorzystaniem składania obiektów),
+      możliwość dodawania nowej funkcjonalności,
+      brak możliwości przeładowania metod obiektu adaptowanego.
+  
+  W obu przypadkach należy liczyć się z narzutem wydajnościowym — tym większym, im większa jest niekompatybilność interfejsów. 
+
+**Bridge**
+**Composite**
+**Decorator**
+
+  Dekorator – wzorzec projektowy należący do grupy wzorców strukturalnych. Pozwala na dodanie nowej funkcji do istniejących klas dynamicznie podczas działania programu.
+  
+  Wzorzec dekoratora polega na opakowaniu oryginalnej klasy w nową klasę "dekorującą". Zwykle przekazuje się oryginalny obiekt jako parametr konstruktora dekoratora, metody dekoratora wywołują metody oryginalnego obiektu i dodatkowo implementują nową funkcję.
+  
+  Dekoratory są alternatywą dla dziedziczenia. Dziedziczenie rozszerza zachowanie klasy w trakcie kompilacji, w przeciwieństwie do dekoratorów, które rozszerzają klasy w czasie działania programu.
+  
+  Ponieważ w większości obiektowych języków programowania nie można tworzyć nowych klas podczas działania programu i zwykle nie można przewidzieć z góry wszystkich kombinacji rozszerzeń klas, konieczne by było stworzenie nowej klasy dla każdej kombinacji. Dekoratory są obiektami tworzonymi w czasie działania programu i mogą być łączone w różne kombinacje bezpośrednio przy użyciu. 
+  
+  Rozważmy okno w graficznym interfejsie użytkownika. By pozwolić na przewijanie jego zawartości, należy dodać do niego poziome lub pionowe paski przewijania. Okna są reprezentowane przez instancję klasy Okno i klasa ta nie powinna posiadać żadnych metod dodających paski przewijania. Można utworzyć podklasę PrzewijaneOkno, która udostępniałaby te metody lub stworzyć OknoDekoratorPrzewijane, który jedynie dodawałby tę funkcję do istniejących obiektów Okno. W tym miejscu działałyby oba rozwiązania.
+  
+  Teraz załóżmy, że potrzeba dodać ramki dookoła okien. I w tym przypadku klasa Okno nie ma takiej funkcji. Pojawia się problem z podklasą PrzewijaneOkno, bo aby dodać ramki do wszystkich okien potrzeba stworzyć podklasy OknoZRamką i OknoPrzewijaneZRamką. Problem staje się jeszcze większy z każdą kolejną opcją. W przypadku dekoratorów wystarczy stworzyć jedną klasę OknoDekoratorRamka - podczas działania programu można dynamicznie dekorować istniejące okna z OknoDekoratorPrzewijane lub OknoDekoratorRamka lub oboma.
+  
+  Przykładem zastosowania wzorca dekoratora jest implementacja strumieni I/O w Javie. 
+  
+      Zapewnia większą elastyczność niż statyczne dziedziczenie.
+      Pozwala uniknąć tworzenia przeładowanych funkcjami klas na wysokich poziomach hierarchii.
+      Dekorator i powiązany z nim komponent nie są identyczne.
+      Powstawanie wielu małych obiektów.
+
+
+**Façade**
+
+  Fasada – wzorzec projektowy należący do grupy wzorców strukturalnych. Służy do ujednolicenia dostępu do złożonego systemu poprzez wystawienie uproszczonego, uporządkowanego interfejsu programistycznego, który ułatwia jego użycie. 
+  
+  Rozważmy kompilator napisany z wykorzystaniem reguł programowania obiektowego. Znajdują się w nim klasy i obiekty reprezentujące Analizator składniowy, lekser, bufory na kod wynikowy i wiele innych elementów. Interfejs całego systemu posiada duże możliwości, lecz jest skomplikowany, tymczasem większość jego użytkowników będzie zainteresowana po prostu uruchomieniem kompilacji określonego pliku i pobrania wyniku. Rozwiązaniem jest zastosowanie wzorca Fasada do stworzenia dodatkowego obiektu, który pozwala szybko uruchomić najbardziej typowe zadania, jednocześnie nie ukrywając złożoności systemu przed tymi, którzy jej faktycznie potrzebują. 
+  
+  Wzorzec wyróżnia następujące elementy:
+  
+      złożony system – reprezentowany na diagramie przez klasy Element1 do Element5. Chcemy uprościć dostęp do niego,
+      fasada – klasa posiadająca referencje do elementów systemu z metodami do wykonywania najczęściej potrzebnych zadań,
+      klient – dowolny kod zainteresowany wykorzystaniem złożonego systemu.
+  
+  Klient komunikuje się z systemem poprzez fasadę, która w jego imieniu wykonuje niezbędne operacje na złożonym systemie. To, czy klient posiada także bezpośredni dostęp do systemu, leży w gestii programisty implementującego wzorzec, ponieważ możliwe jest wykorzystanie go do podziału systemu na warstwy, gdzie fasady służą do uproszczenia i ujednolicenia komunikacji. 
+ 
+      duże zmniejszenie liczby zależności między klientem a złożonym systemem — jeśli klient nie korzysta bezpośrednio z żadnych elementów ukrytych za fasadą systemu, całość jest łatwiejsza w konserwacji i utrzymaniu,
+      wprowadzenie podziału aplikacji na warstwy, który ułatwia niezależny rozwój klienta i złożonego systemu,
+      możliwość zablokowania klientowi drogi do bezpośredniego korzystania ze złożonego systemu, jeśli jest to konieczne,
+      kod klienta wykorzystującego fasadę jest czytelniejszy i łatwiejszy w zrozumieniu.
+      
+  Przykładem użycia wzorca fasady może być aplikacja bankomatowa, która musi wchodzić w interakcję z systemem bankowym. Skoro aplikacja bankomatowa wykorzystuje tylko niewielką część możliwości systemu bankowego (autoryzacja karty, sprawdzenie stanu konta, wypłata i ew. wpłata), to można zastosować obiekt fasady, który zasłoni przed zewnętrznymi aplikacjami skomplikowaną strukturę wewnętrzną systemu bankowego. Upraszcza to pisanie aplikacji na bankomaty, a jednocześnie zapewnia lepsze bezpieczeństwo systemu bankowego.    
  
 **Flyweight**
 
@@ -57,20 +161,31 @@ Wzorce możemy podzielić na trzy rodziny:
    - elementu abstrakcyjnego Flyweight definiującego operacje służące do przyjmowania i odtwarzania stanu zewnętrznego obiektu opisywanego przez klasę UnsharedConcreteFlyweight
    - obiektu tworzonego na bazie klasy ConcreteFlyweight przechowującego stan wewnętrzny (współdzielony) obiektu, który dodatkowo jest niezależny od kontekstu wywołania
    - fabryki FlyweightFactory, której zadaniem jest kreowanie i składowanie obiektów realizujących interfejs Flyweight
+   
+  Kompozyt jest często używany wraz z Pyłkiem, by zaimplementować współdzielone liście w strukturze drzewa. Pyłek objaśnia czy i w jakich warunkach obiekt typu Stan może być współdzielony. Podczas gdy Pyłek pokazuje, jak utworzyć mnóstwo małych obiektów składających się na jeden, lub kilka(-nascie, -dziesiąt) większych, Fasada pokazuje jak utworzyć jeden obiekt reprezentujący cały złożony podsystem.  
 
 **Proxy**
 
+  Pełnomocnik (ang. proxy) – strukturalny wzorzec projektowy, którego celem jest utworzenie obiektu zastępującego inny obiekt. Stosowany jest w celu kontrolowanego tworzenia na żądanie kosztownych obiektów oraz kontroli dostępu do nich. 
+  
+  Istnieją cztery rodzaje tego wzorca, które jednocześnie definiują sytuacje, w których może zostać użyty:
+  
+      wirtualny – przechowuje obiekty, których utworzenie jest kosztowne; tworzy je na żądanie
+      ochraniający – kontroluje dostęp do obiektu sprawdzając, czy obiekt wywołujący ma odpowiednie prawa do obiektu wywoływanego
+      zdalny – czasami nazywany ambasadorem; reprezentuje obiekty znajdujące się w innej przestrzeni adresowej
+      sprytne odwołanie – czasami nazywany sprytnym wskaźnikiem; pozwala na wykonanie dodatkowych akcji podczas dostępu do obiektu, takich jak: zliczanie referencji do obiektu czy ładowanie obiektu do pamięci
+
 ### Behavioral Design Patterns:
 
- - Chain of Responsibility 
- - Command
- - Interpreter
- - Iterator 
- - Mediator 
- - Memento
- - Null Object 
- - Observer 
- 
+**Chain of Responsibility** 
+**Command**
+**Interpreter**
+**Iterator** 
+**Mediator** 
+**Memento**
+**Null Object** 
+**Observer**
+
 **State** 
  
   Stan – czynnościowy wzorzec projektowy, który umożliwia zmianę zachowania obiektu poprzez zmianę jego stanu wewnętrznego. Innymi słowy – uzależnia sposób działania obiektu od stanu w jakim się aktualnie znajduje.
