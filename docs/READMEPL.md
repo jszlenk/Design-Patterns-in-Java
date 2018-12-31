@@ -28,7 +28,42 @@ Wzorce możemy podzielić na trzy rodziny:
 ### Creational Design Patterns: 
 
 **Builder**
+
+  Budowniczy (ang. Builder) – kreacyjny wzorzec projektowy, którego celem jest rozdzielenie sposobu tworzenia obiektów od ich reprezentacji. Innymi słowy proces tworzenia obiektu podzielony jest na kilka mniejszych etapów a każdy z tych etapów może być implementowany na wiele sposobów. Dzięki takiemu rozwiązaniu możliwe jest tworzenie różnych reprezentacji obiektów w tym samym procesie konstrukcyjnym: sposób tworzenia obiektów zamknięty jest w oddzielnych obiektach zwanych Konkretnymi Budowniczymi. Zazwyczaj stosowany jest do konstrukcji obiektów złożonych, których konfiguracja i inicjalizacja jest procesem wieloetapowym. Budowniczy różni się od wzorca fabryki abstrakcyjnej oraz pozostałych wzorców kreacyjnych tym, że skupia się na sposobie tworzenia obiektów reprezentujących produkty. Tworzy drobną część skomplikowanego produktu za każdym swoim wywołaniem jednocześnie kontrolując stan wykonanej pracy. Klient otrzymuje produkt po zakończeniu jego pracy, a nie – tak jak w przypadku Fabryki abstrakcyjnej – bezzwłocznie. W przypadku Fabryki abstrakcyjnej możliwe jest także tworzenie kilku obiektów jednocześnie. Często oba wzorce są łączone. Należy do grupy wzorców skatalogowanych przez Gang czworga.
+
+  Wzorzec budowniczego stosowany jest do oddzielenia sposobu tworzenia obiektów od tego jak te obiekty mają wyglądać. Przykładem jest oprogramowanie konwertujące tekst z jednego formatu na drugi. Algorytm odczytujący i interpretujący dane wejściowe jest oddzielony od algorytmu tworzącego dane wyjściowe. Dzięki takiemu rozwiązaniu możliwe jest zastosowanie jednego obiektu odczytującego dane wejściowe oraz wielu obiektów konwertujących odczytane dane do różnych formatów (ASCII, HTML, RTF, itp.), co zwiększa uniwersalność rozwiązania.
+  
+  Różne warianty omawianego wzorca wykorzystywane są w bibliotece MFC, implementując architekturę dokument/widok. Obiekt klasy CDocument oraz jego podobiekty tworzone są poprzez wywołanie metody tworzącej z trzema parametrami typu CRuntimeClass. Klasa ta zawiera metodę CreateObject, umożliwiającą jej tworzenie obiektów różnych klas (m.in. CDocument, CFrameWnd oraz CView). Dzięki takiemu zachowaniu CRuntimeClass może być nazwana klasą Budowniczego.
+
+  Standardowo wzorzec składa się z dwóch podstawowych obiektów. Pierwszy z nich oznaczony jest jako Budowniczy – jego celem jest dostarczenie interfejsu do tworzenia obiektów nazywanych w tym kontekście produktami. Drugim obiektem jest obiekt oznaczony jako Konkretny Budowniczy, a jego celem jest tworzenie konkretnych reprezentacji produktów przy pomocy zaimplementowanego interfejsu Budowniczego. W Konkretnym Budowniczym zawarte są procedury odpowiedzialne za konstrukcje i inicjalizację obiektu. Strukturę wzorca uzupełnia obiekt Kierownika (czasami nazywany także Dyrektorem, Nadzorcą), który zleca konstrukcję produktów poprzez obiekt Budowniczego dbając o to, aby proces konstrukcyjny przebiegał w odpowiedniej kolejności.
+  Diagram sekwencji wzorca Budowniczy
+  
+  Dokładny przebieg procesu budowania przedstawia znajdujący się obok diagram sekwencji:
+  
+  - klient używający wzorca konstruuje obiekt budowniczego,
+  - klient konstruuje nadzorcę, przekazując mu referencję do obiektu budowniczego, z którego ma korzystać,
+  - klient zleca skonstruowanie produktu,
+  - nadzorca zleca budowniczemu wykonanie w odpowiedniej kolejności wszystkich czynności niezbędnych do stworzenia produktu,
+  - klient pobiera gotowy produkt od budowniczego.
+      
+  Zaletami stosowania wzorca są: duża możliwość zróżnicowania wewnętrznych struktur klas, większa możliwość kontrolowania tego, w jaki sposób tworzony jest obiekt (proces konstrukcyjny jest niezależny od elementów, z których składa się tworzony obiekt) oraz duża skalowalność (dodawanie nowych reprezentacji obiektów jest uproszczone). Stosowanie wzorca zapobiega także tworzeniu zduplikowanego kodu odpowiedzialnego za tworzenie obiektów, gdyż proces tworzenia konkretnych elementów obiektów zamknięty jest w poszczególnych procedurach.Wady to duża liczba obiektów reprezentujących konkretne produkty.    
+
+  Wzorcem podobnym do Budowniczego jest fabryka abstrakcyjna, której celem jest tworzenie grupy produktów. Wzorzec Budowniczego często jest także stosowany do tworzenia obiektów we wzorcu kompozyt. Inne podobne wzorce to metoda wytwórcza oraz metoda szablonowa.
+
 **Factories**
+
+  Fabryka abstrakcyjna (ang. Abstract Factory) – kreacyjny wzorzec projektowy, którego celem jest dostarczenie interfejsu do tworzenia różnych obiektów jednego typu (tej samej rodziny) bez specyfikowania ich konkretnych klas. Umożliwia jednemu obiektowi tworzenie różnych, powiązanych ze sobą, reprezentacji podobiektów określając ich typy podczas działania programu. Fabryka abstrakcyjna różni się od Budowniczego tym, że kładzie nacisk na tworzenie produktów z konkretnej rodziny, a Budowniczy kładzie nacisk na sposób tworzenia obiektów.
+  
+  Rozpatrzmy aplikację kliencką, która łączy się ze zdalnym serwerem. Celem projektanta takiej aplikacji jest to, aby była ona przenośna. Jednym z rozwiązań takiego problemu jest stworzenie fabryki, która będzie tworzyła odpowiednie obiekty w zależności od tego na jakiej platformie się znajduje.
+  
+  Jak widać na załączonym diagramie klas wzorzec zbudowany jest z kilku podstawowych klas. Klasa Fabryka abstrakcyjna deklaruje abstrakcyjny interfejs umożliwiający tworzenie produktów. Interfejs ten jest implementowany w Fabrykach konkretnych, które odpowiedzialne są za tworzenie konkretnych produktów. Każda fabryka konkretnego produktu posiada także metodę wytwórczą tego produktu.
+  
+  Jednym z plusów wykorzystania wzorca jest możliwość ukrycia szczegółów implementacyjnych klas reprezentujących konkretny produkt - klient widzi tylko interfejs. Ukryciu ulegają także nazwy tych klas, co nie wymusza ich zapamiętywania i odizolowuje klienta od problemu określenia do której klasy należy obiekt.
+  
+  Do zysków należy także możliwość całkowitego ukrycia implementacji obiektów przed klientem. Klient widzi tylko interfejs i nie ma możliwości zajrzenia do kodu oraz to, że wymuszana jest spójność produktów.
+  
+  Do minusów należy zaliczyć trudność rozszerzania rodziny obiektów o nowe podobiekty. Wymusza to modyfikację klasy fabryki abstrakcyjnej oraz wszystkich obiektów, które są tworzone przez nią.
+
 **Prototype** 
 
   Prototyp – kreacyjny wzorzec projektowy, którego celem jest umożliwienie tworzenia obiektów danej klasy bądź klas z wykorzystaniem już istniejącego obiektu, zwanego prototypem. Głównym celem tego wzorca jest uniezależnienie systemu od sposobu w jaki tworzone są w nim produkty.
@@ -45,9 +80,9 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Rozważmy aplikację prowadzącą dla celów diagnostycznych dziennik zdarzeń. Poszczególne komponenty dodają wpis do dziennika, przekazując mu jego treść, natomiast dziennik określa, gdzie faktycznie zostanie on zapisany.
   
-      Każdy komponent może uzyskać w dowolnym momencie dostęp do dziennika, zatem musi on być dostępny globalnie.
-      To dziennik decyduje o tym, gdzie wpis zostanie faktycznie zapisany. Komponent musi jedynie przekazać jego treść. Oznacza to istnienie pojedynczej instancji dziennika.
-      Z dziennika mogą również korzystać komponenty wielokrotnego użytku, zatem nie powinny one być zależne od mechanizmów udostępniania zasobów specyficznych dla danej aplikacji.
+  - Każdy komponent może uzyskać w dowolnym momencie dostęp do dziennika, zatem musi on być dostępny globalnie.
+  - To dziennik decyduje o tym, gdzie wpis zostanie faktycznie zapisany. Komponent musi jedynie przekazać jego treść. Oznacza to istnienie pojedynczej instancji dziennika.
+  - Z dziennika mogą również korzystać komponenty wielokrotnego użytku, zatem nie powinny one być zależne od mechanizmów udostępniania zasobów specyficznych dla danej aplikacji.
   
   Możemy to zapewnić, implementując w dzienniku wzorzec singleton tak, aby mógł on we własnym zakresie zarządzać dostępem do siebie samego.
   
@@ -57,18 +92,18 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Zalety:
   
-      singleton nie musi ograniczać się do obsługi pojedynczej instancji klasy – przy niewielkiej zmianie podejścia można za jego pomocą zarządzać także większą liczbą obiektów,
-      klasa zaimplementowana z użyciem wzorca singleton może samodzielnie kontrolować liczbę swoich instancji istniejących w systemie,
-      proces pobierania instancji klasy jest niewidoczny dla użytkownika. Nie musi on wiedzieć, czy w chwili wywołania metody instancja istnieje czy dopiero jest tworzona,
-      tworzenie nowej instancji ma charakter leniwy, tj. zachodzi dopiero przy pierwszej próbie użycia. Jeśli żaden komponent nie zdecyduje się korzystać z klasy, jej instancji nie będą niepotrzebnie przydzielone zasoby.
+  - singleton nie musi ograniczać się do obsługi pojedynczej instancji klasy – przy niewielkiej zmianie podejścia można za jego pomocą zarządzać także większą liczbą obiektów,
+  - klasa zaimplementowana z użyciem wzorca singleton może samodzielnie kontrolować liczbę swoich instancji istniejących w systemie,
+  - proces pobierania instancji klasy jest niewidoczny dla użytkownika. Nie musi on wiedzieć, czy w chwili wywołania metody instancja istnieje czy dopiero jest tworzona,
+  - tworzenie nowej instancji ma charakter leniwy, tj. zachodzi dopiero przy pierwszej próbie użycia. Jeśli żaden komponent nie zdecyduje się korzystać z klasy, jej instancji nie będą niepotrzebnie przydzielone zasoby.
   
   Wady:
   
-      brak elastyczności, bo już na poziomie kodu jest na sztywno określona liczba instancji, jakie mogą istnieć w systemie
-      poważnie utrudnia testowanie aplikacji przez wprowadzenie do niej globalnego stanu[5]
-      łamie zasadę jednej odpowiedzialności
-      łamie zasadę otwarte-zamknięte
-      nie można go rozszerzyć
+  - brak elastyczności, bo już na poziomie kodu jest na sztywno określona liczba instancji, jakie mogą istnieć w systemie
+  - poważnie utrudnia testowanie aplikacji przez wprowadzenie do niej globalnego stanu[5]
+  - łamie zasadę jednej odpowiedzialności
+  - łamie zasadę otwarte-zamknięte
+  - nie można go rozszerzyć
   
   Singleton musi być ostrożnie stosowany w systemach wielowątkowych. Zażądanie instancji klasy przez dwa wątki równocześnie może doprowadzić do utworzenia dwóch niezależnych instancji, dlatego metoda dostępowa powinna być wtedy zaimplementowana z wykorzystaniem wzajemnego wykluczania.
 
@@ -90,19 +125,46 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Konsekwencje stosowania wzorca są różne w zależności od tego, z jakim typem mamy do czynienia. W przypadku typu klasowego są to:
   
-      brak możliwości adaptowania klasy wraz z jej podklasami,
-      możliwość przeładowania metod obiektu adaptowanego.
+  - brak możliwości adaptowania klasy wraz z jej podklasami,
+  - możliwość przeładowania metod obiektu adaptowanego.
   
   Do konsekwencji stosowania adaptera obiektowego należą:
   
-      możliwość adaptacji klasy wraz z jej podklasami (związane jest to z wykorzystaniem składania obiektów),
-      możliwość dodawania nowej funkcjonalności,
-      brak możliwości przeładowania metod obiektu adaptowanego.
+  - możliwość adaptacji klasy wraz z jej podklasami (związane jest to z wykorzystaniem składania obiektów),
+  - możliwość dodawania nowej funkcjonalności,
+  - brak możliwości przeładowania metod obiektu adaptowanego.
   
   W obu przypadkach należy liczyć się z narzutem wydajnościowym — tym większym, im większa jest niekompatybilność interfejsów. 
 
 **Bridge**
+
+  Wzorzec mostu (ang. Bridge pattern) – strukturalny wzorzec projektowy, który pozwala oddzielić abstrakcję obiektu od jego implementacji.
+  
+  Zaleca się stosowanie tego wzorca aby:
+  
+  - odseparować implementację od interfejsu,
+  - poprawić możliwości rozbudowy klas, zarówno implementacji, jak i interfejsu (m.in. przez dziedziczenie),
+  - ukryć implementację przed klientem, co umożliwia zmianę implementacji bez zmian interfejsu.
+
 **Composite**
+
+  Kompozyt – strukturalny wzorzec projektowy, którego celem jest składanie obiektów w taki sposób, aby klient widział wiele z nich jako pojedynczy obiekt.
+  
+  Wzorzec ten stosuje się, gdy wygodniej jest korzystać z pewnych operacji dla danego obiektu w ten sam sposób jak dla grupy obiektów, np. rysując na ekranie prymitywy lub obiekty złożone z prymitywów; zmieniając rozmiar zarówno pojedynczych prymitywów jak i obiektów złożonych z prymitywów (z zachowaniem proporcji).
+  
+  Wzorzec wyróżnia następujące elementy:
+  
+  - Component - klasa abstrakcyjna reprezentująca pojedyncze obiekty Leaf, jak i kontenery tych obiektów.
+  - Leaf - typ prosty - nie posiada potomków.
+  - Composite - przechowuje obiekty proste (Leaf), implementuje zachowanie elementów które zawiera.
+  
+  Composite jak i Leaf dziedziczy po tym samym interfejsie co pozwala na dostęp do obiektów prostych w ten sam sposób jak do grupy tych obiektów. Użytkownik może przeprowadzać operacje na pojedynczym obiekcie, jak i na grupie obiektów reprezentowanych tym wzorcem. Zgodnie z oryginalnym opisem wzorca, zarówno klasa Component jak i Composite zawiera metody operujące na komponentach podrzędnych, które są przechowywane w klasie Composite. Nowsze opisy umieszczają te metody tylko w klasie Composite.
+
+  - Umożliwia definiowanie hierarchii z obiektów prostych i złożonych
+  - Upraszcza kod klientów
+  - Ułatwia dodawanie komponentów nowego rodzaju
+  - Może sprawić, że projekt stanie się zanadto ogólny
+
 **Decorator**
 
   Dekorator – wzorzec projektowy należący do grupy wzorców strukturalnych. Pozwala na dodanie nowej funkcji do istniejących klas dynamicznie podczas działania programu.
@@ -119,10 +181,10 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Przykładem zastosowania wzorca dekoratora jest implementacja strumieni I/O w Javie. 
   
-      Zapewnia większą elastyczność niż statyczne dziedziczenie.
-      Pozwala uniknąć tworzenia przeładowanych funkcjami klas na wysokich poziomach hierarchii.
-      Dekorator i powiązany z nim komponent nie są identyczne.
-      Powstawanie wielu małych obiektów.
+  - Zapewnia większą elastyczność niż statyczne dziedziczenie.
+  - Pozwala uniknąć tworzenia przeładowanych funkcjami klas na wysokich poziomach hierarchii.
+  - Dekorator i powiązany z nim komponent nie są identyczne.
+  - Powstawanie wielu małych obiektów.
 
 
 **Façade**
@@ -133,16 +195,16 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Wzorzec wyróżnia następujące elementy:
   
-      złożony system – reprezentowany na diagramie przez klasy Element1 do Element5. Chcemy uprościć dostęp do niego,
-      fasada – klasa posiadająca referencje do elementów systemu z metodami do wykonywania najczęściej potrzebnych zadań,
-      klient – dowolny kod zainteresowany wykorzystaniem złożonego systemu.
+  - złożony system – reprezentowany na diagramie przez klasy Element1 do Element5. Chcemy uprościć dostęp do niego,
+  - fasada – klasa posiadająca referencje do elementów systemu z metodami do wykonywania najczęściej potrzebnych zadań,
+  - klient – dowolny kod zainteresowany wykorzystaniem złożonego systemu.
   
   Klient komunikuje się z systemem poprzez fasadę, która w jego imieniu wykonuje niezbędne operacje na złożonym systemie. To, czy klient posiada także bezpośredni dostęp do systemu, leży w gestii programisty implementującego wzorzec, ponieważ możliwe jest wykorzystanie go do podziału systemu na warstwy, gdzie fasady służą do uproszczenia i ujednolicenia komunikacji. 
  
-      duże zmniejszenie liczby zależności między klientem a złożonym systemem — jeśli klient nie korzysta bezpośrednio z żadnych elementów ukrytych za fasadą systemu, całość jest łatwiejsza w konserwacji i utrzymaniu,
-      wprowadzenie podziału aplikacji na warstwy, który ułatwia niezależny rozwój klienta i złożonego systemu,
-      możliwość zablokowania klientowi drogi do bezpośredniego korzystania ze złożonego systemu, jeśli jest to konieczne,
-      kod klienta wykorzystującego fasadę jest czytelniejszy i łatwiejszy w zrozumieniu.
+  - duże zmniejszenie liczby zależności między klientem a złożonym systemem — jeśli klient nie korzysta bezpośrednio z żadnych elementów ukrytych za fasadą systemu, całość jest łatwiejsza w konserwacji i utrzymaniu,
+  - wprowadzenie podziału aplikacji na warstwy, który ułatwia niezależny rozwój klienta i złożonego systemu,
+  - możliwość zablokowania klientowi drogi do bezpośredniego korzystania ze złożonego systemu, jeśli jest to konieczne,
+  - kod klienta wykorzystującego fasadę jest czytelniejszy i łatwiejszy w zrozumieniu.
       
   Przykładem użycia wzorca fasady może być aplikacja bankomatowa, która musi wchodzić w interakcję z systemem bankowym. Skoro aplikacja bankomatowa wykorzystuje tylko niewielką część możliwości systemu bankowego (autoryzacja karty, sprawdzenie stanu konta, wypłata i ew. wpłata), to można zastosować obiekt fasady, który zasłoni przed zewnętrznymi aplikacjami skomplikowaną strukturę wewnętrzną systemu bankowego. Upraszcza to pisanie aplikacji na bankomaty, a jednocześnie zapewnia lepsze bezpieczeństwo systemu bankowego.    
  
@@ -170,21 +232,202 @@ Wzorce możemy podzielić na trzy rodziny:
   
   Istnieją cztery rodzaje tego wzorca, które jednocześnie definiują sytuacje, w których może zostać użyty:
   
-      wirtualny – przechowuje obiekty, których utworzenie jest kosztowne; tworzy je na żądanie
-      ochraniający – kontroluje dostęp do obiektu sprawdzając, czy obiekt wywołujący ma odpowiednie prawa do obiektu wywoływanego
-      zdalny – czasami nazywany ambasadorem; reprezentuje obiekty znajdujące się w innej przestrzeni adresowej
-      sprytne odwołanie – czasami nazywany sprytnym wskaźnikiem; pozwala na wykonanie dodatkowych akcji podczas dostępu do obiektu, takich jak: zliczanie referencji do obiektu czy ładowanie obiektu do pamięci
+  - wirtualny – przechowuje obiekty, których utworzenie jest kosztowne; tworzy je na żądanie
+  - ochraniający – kontroluje dostęp do obiektu sprawdzając, czy obiekt wywołujący ma odpowiednie prawa do obiektu wywoływanego
+  - zdalny – czasami nazywany ambasadorem; reprezentuje obiekty znajdujące się w innej przestrzeni adresowej
+  - sprytne odwołanie – czasami nazywany sprytnym wskaźnikiem; pozwala na wykonanie dodatkowych akcji podczas dostępu do obiektu, takich jak: zliczanie referencji do obiektu czy ładowanie obiektu do pamięci
 
 ### Behavioral Design Patterns:
 
 **Chain of Responsibility** 
+
+  Łańcuch zobowiązań (ang. Chain of responsibility, niekiedy tłumaczony także jako Łańcuch odpowiedzialności – czynnościowy wzorzec projektowy, w którym żądanie może być przetwarzane przez różne obiekty, w zależności od jego typu.
+  
+  Rozpatrzmy przykładowy komponent systemu, który przetwarza żądania przychodzące od innych komponentów. Każde żądanie ma określony typ, lub daje się zaklasyfikować do jakiejś kategorii. W zależności od typu, żądania mają być przetwarzane w odmienny sposób. Pragniemy zaimplementować mechanizm przetwarzania żądań, który umożliwiłby łatwe dodawanie w przyszłości obsługi nowych typów oraz ich usuwanie w razie potrzeby.
+  
+  Wzorzec Łańcuch zobowiązań zakłada utworzenie oddzielnej klasy dla każdej procedury obsługi żądania dziedziczącej po pewnej klasie bazowej AbstrakcyjnaObsluga. Obiekt każdej z procedur może posiadać wskazanie na następnik, tworząc w ten sposób łańcuch procedur przetwarzania. Aby przetworzyć żądanie, wykonujemy metodę operacja() na pierwszym elemencie łańcucha. Jeśli nie potrafi on przetworzyć żądania, powinien przekazać je swojemu następnikowi: 
+  
+  Konsekwencje użycia:
+  
+  Zalety:
+  
+  - elementy łańcucha mogą być dynamicznie dodawane i usuwane w trakcie działania programu,
+  - zmniejszenie liczby zależności między nadawcą a odbiorcami,
+  - implementacja pojedynczej procedury nie musi znać struktury łańcucha oraz innych procedur.
+  
+  Wady:
+  
+  - wzorzec nie gwarantuje, że każde żądanie zostanie obsłużone,
+  - śledzenie i debugowanie pracy działania łańcucha może być trudne.
+  
+  Zastosowanie:
+  
+  Wzorzec znajduje zastosowanie wszędzie tam, gdzie mamy do czynienia z różnymi mechanizmami podobnych żądań, które można zaklasyfikować do różnych kategorii. Dodatkową motywacją do jego użycia są często zmieniające się wymagania.
+  
+  Rozpatrzmy drzewo dokumentu (DOM). Każdy element może mieć elementy - dzieci, oraz ma swój element - rodzica w którym się zawiera (poza elementem głównym - rootem).
+  
+  Użytkownik klika na któryś z elementów w drzewie. Jest to zarówno kliknięcie na ten element, jak i na elementy w których się znajduje ten element (rodziców - ponieważ znajdują się pod klikniętym elementem i kliknięcie może również dotyczyć ich). Elementy mogą mieć handler dla zdarzenia click - lub nie. Jeżeli obiekt posiada handler, obsługuje kliknięcie, i propagacja się kończy. Jeżeli handler uzna, że nie jest w stanie obsłużyć zdarzenia i zostanie wywołana odpowiednia metoda powodująca propagację wyżej, lub jeżeli obiekt nie posiada handlera, zdarzenie jest propagowane do rodzica klikniętego elementu. Cykl się powtarza dla rodzica - znowu, jeżeli potrafi on obsłużyć zdarzenie to propagacja się kończy, jeżeli nie, zdarzenie jest propagowane wyżej i wyżej, tak długo aż któryś z obiektów je obsłuży, lub propagacja osiągnie root element. 
+
 **Command**
+
+  Polecenie (ang. Command, komenda) – czynnościowy wzorzec projektowy, traktujący żądanie wykonania określonej czynności jako obiekt, dzięki czemu mogą być one parametryzowane w zależności od rodzaju odbiorcy, a także umieszczane w kolejkach i dziennikach.
+
+  Rozpatrzmy typową aplikację okienkową realizującą jakieś zadanie. Użytkownik może wykonać w niej różne czynności. Chcemy umożliwić mu cofanie zmian oraz przeglądanie ich historii, dlatego niezbędny jest nam mechanizm, który oprócz obsługi żądań, będzie je także zapamiętywał na stosie.
+
+  Wzorzec Polecenie zakłada utworzenie oddzielnej klasy dla każdego zadania implementującej pewien wspólny interfejs Polecenie. Mamy także stronę generującą zadania do wykonania (nadawca), którą może być kod obsługi zdarzeń myszki i klawiatury, a także jeden lub więcej obiektów odpowiedzialnych za obsługę poleceń (odbiorca). Aby wykonać operację, nadawca tworzy obiekt określonego zadania i przekazuje go do wybranego odbiorcy, który odpowiada za wywołanie metody wykonaj().
+
+  Dopuszczalne jest parametryzowanie polecenia przed jego wykonaniem, zarówno po stronie odbiorcy, jak i nadawcy. Dodatkowo, odbiorca może zapamiętać obiekt polecenia na stosie, oferując programowi usługę wycofywania operacji lub przeglądania historii. Wspólny interfejs Polecenie musi być wtedy rozszerzony o dodatkowe metody takie, jak ustawParametr() czy wycofaj().
+
+  Wykaz elementów składowych wzorca:
+
+  - polecenie — interfejs definiujący operacje, jakie musi obsługiwać każde polecenie (wykonywanie zadania, wycofywanie zmian itd.)
+  - konkretne polecenie — klasa dostarczająca implementacji interfejsu polecenia, koncentrująca się na obsłudze pojedynczego zadania. Dla każdego rodzaju obsługiwanego polecenia tworzymy oddzielną klasę.
+  - model — dowolny obiekt, na którym polecenia potrafią wykonać operacje. W praktyce w skład modelu może wchodzić dowolnie duża liczba klas i obiektów.
+  - nadawca — dowolny obiekt, który potrafi generować obiekty poleceń.
+  - odbiorca — obiekt wykonujący polecenia poprzez wywołanie metody wykonaj() na przekazanym do niego obiekcie. Oprócz tego, może wykonać dodatkowe operacje związane z jego obsługą (np. zapisanie polecenia w dzienniku lub historii zmian).
+
+  Zalety:
+
+  - oddzielenie operacji od obiektów, na których jest ona wykonywana,
+  - polecenia są reprezentowane jako standardowe obiekty, dzięki czemu możemy na nich stosować wszystkie manipulacje dopuszczalne w programowaniu obiektowym,
+  - możliwość łączenia elementarnych poleceń w polecenia złożone,
+  - łatwość dodawania nowych rodzajów poleceń.
+
+  Wady:
+
+  - każde polecenie wymaga dodatkowej pamięci na zapamiętanie stanu swojego obiektu.
+
+  Implementacja wzorca wymaga przeanalizowania następujących kwestii:
+
+  - stopień skomplikowania polecenia — jak dużą odpowiedzialność powinny mieć polecenia? Czy będą to jedynie proste obiekty wykonujące operację na dostarczonym modelu czy też złożone implementacje, które nie delegują do odbiorcy żadnych zadań?
+  - czy będziemy obsługiwać wycofywanie operacji — oprócz dodania do interfejsu metody wycofaj(), polecenia muszą również zapamiętywać wystarczająco dużo informacji o stanie, aby umożliwić jego odtworzenie. Wszystkie operacje, jakie wykonujemy na modelu, muszą być wycofywalne i należy dla każdej z nich zaimplementować odpowiednią klasę polecenia. W przeciwnym wypadku wielokrotne wykonywanie i wycofywanie poleceń może doprowadzić do nawarstwiania się błędów oraz utraty bądź uszkodzenia danych. Do zapamiętywania stanu obiektu sprzed wykonania operacji bez ujawniania szczegółów jego wewnętrznej struktury można wykorzystać wzorzec Pamiątka.
+
+  Wzorzec znajduje zastosowanie wszędzie tam, gdzie musimy zapamiętywać wykonywane operacje lub je wycofywać. Mogą to być zarówno przedstawione wyżej programy okienkowe z opcją cofania, jak i np. systemy obsługi transakcji w instalatorach lub bazach danych i mechanizmy nagrywania makr. Drugim obszarem zastosowań są sytuacje, gdy identyczne polecenia muszą być parametryzowane różnymi danymi w zależności od tego, kto odpowiada za ich obsłużenie.
+
+  Wzorzec Polecenie znalazł też zastosowanie w implementacjach mechanizmów zdalnego wykonywania procedur, gdzie obiekty żądań są serializowane i przesyłane jako strumień bajtów do innego komputera, który odpowiada za ich wykonanie. 
+
 **Interpreter**
+
+  Interpreter – czynnościowy wzorzec projektowy, którego celem jest zdefiniowanie opisu gramatyki pewnego języka interpretowalnego, a także stworzenie dla niej interpretera, dzięki któremu będzie możliwe rozwiązanie opisanego problemu. 
+  Omawiany wzorzec projektowy można wykorzystać w sytuacjach, gdy zdania, zapisane w pewnym interpretowalnym języku, mogą być reprezentowane jako drzewa składniowe oraz istnieje prosta gramatyka opisująca ten język. Do przykładowych zastosowań tego wzorca należy interpretacja rzymskiego systemu liczbowego, interpretacja wyrażeń zapisanych w odwrotnej notacji polskiej oraz sprawdzanie poprawności pewnych reguł. Stosowany jest także w kompilatorach (np. kompilatorze języka Smalltalk). 
+
 **Iterator** 
-**Mediator** 
+
+  Iterator – czynnościowy wzorzec projektowy (obiektowy), którego celem jest zapewnienie sekwencyjnego dostępu do podobiektów zgrupowanych w większym obiekcie.
+  
+  Ze wzorca Iterator należy korzystać w następujących warunkach:
+  
+  - Kiedy chcesz uzyskać dostęp do zawartości obiektu zagregowanego bez ujawniania jego wewnętrznej reprezentacji
+  - Jeśli chcesz umożliwić jednoczesne działanie wielu procesów, przechodzenia po obiektach zagregowanych
+  - Jeżeli chcesz udostępnić jednolity interfejs do poruszania się po różnych zagregowanych strukturach (czyli zapewnić obsługę iteracji polimorficznej)
+  
+  Do konsekwencji stosowania wzorca należy możliwość zapewnienia różnych sposobów iterowania obiektu. 
+
+**Mediator**
+
+  Wzorzec mediatora – wzorzec projektowy należący do grupy wzorców czynnościowych. Mediator zapewnia jednolity interfejs do różnych elementów danego podsystemu.
+  
+  Wzorzec mediatora umożliwia zmniejszenie liczby powiązań między różnymi klasami, poprzez utworzenie mediatora będącego jedyną klasą, która dokładnie zna metody wszystkich innych klas, którymi zarządza. Nie muszą one nic o sobie wiedzieć, jedynie przekazują polecenia mediatorowi, a ten rozsyła je do odpowiednich obiektów.
+
 **Memento**
-**Null Object** 
+
+  Pamiątka (ang. Memento) – czynnościowy wzorzec projektowy. Jego zadaniem jest zapamiętanie i udostępnienie na zewnątrz wewnętrznego stanu obiektu bez naruszania hermetyzacji. Umożliwia to przywracanie zapamiętanego stanu obiektu.
+  
+  Pamiątka może zostać wykorzystana w procesorze tekstu do zaimplementowania operacji "Cofnij" oraz "Ponów". Za każdym razem kiedy użytkownik wykonuje jakąś akcję – wprowadza tekst, zmienia wielkość czcionki czy jej kolor – tworzony jest obiekt pamiątki zapamiętujący bieżący stan dokumentu. Gdy użytkownik zleci wycofanie ostatniej operacji, stan dokumentu zostanie odtworzony za pomocą wcześniej zapisanej pamiątki.
+  
+  Inny przykład zastosowania tego wzorca projektowego to ziarno generatora liczb pseudolosowych czy pojedynczy stan automatu skończonego.
+  
+  Wzorzec Pamiątka składa się z:
+  
+  - klasy Originator z metodami CreateMemento i SetMemento,
+  - klasy Memento zawierającej metody SetState oraz GetState, umożliwiających obiektowi odpowiednio zapisanie swojego stanu do pamiątki albo pobranie zapisanego stanu obiektu, dla którego została stworzona pamiątka,
+  - klasy Caretaker, która odpowiada za przechowywanie stworzonych pamiątek.
+  
+  Jedną z konsekwencji stosowania tego wzorca jest umożliwienie zachowania hermetyzacji obiektu dla którego tworzona jest pamiątka. Jedną z wad Pamiątki jest to, że ich używanie może być kosztowne jeżeli chodzi o wykorzystywaną pamięć
+ 
+**Null Object**
+
+  Pusty obiekt (ang. null object) – czynnościowy wzorzec projektowy (obiektowy), którego celem jest realizacja braku obiektu poprzez dostarczenie materialnej alternatywy, która oferuje domyślnie działanie puste, czyli niewykonujące żadnych operacji.
+
+  Wzorzec pusty obiekt umożliwia uniknięcie sprawdzenia, czy wartość jest różna od null przy zachowaniu zasad pełnej obiektowości (polimorfizm, abstrakcja, enkapsulacja).
+
+  Po raz pierwszy został opublikowany w książce Pattern Languages of Program Design. W książkach Martina Fowlera Refactoring i Joshua Kerievsky'ego Refactoring To Patterns wzorzec ten uznawany jest jako Wzorzec refaktoryzacyjny. 
+
+  W językach zorientowanych obiektowo, takich jak Java lub C#, zwykle dopuszczalne jest, by referencje miały wartość pustą. Wywołanie metody na referencji pustej z reguły prowadzi do błędu, dlatego przed wywołaniem jakichkolwiek metod na referencji należy sprawdzić, czy nie ma ona pustej wartości. Aby wyeliminować powtarzanie testów wartości pustej wykorzystuje się wzorzec pusty obiekt.
+
+  Zalety
+
+  - upraszcza kod programu, eliminując zbędne i powtarzające się instrukcje warunkowe,
+  - stosuje klasy polimorficzne,
+  - hermetyzuje puste zachowanie, poprzez metodę o pustym ciele,
+  - umożliwia wielokrotne wykorzystanie pustego zachowania.
+
+  Wady
+
+  - sprawia, że puste zachowanie trudno rozpowszechnić wśród zachowań kilku obiektów współpracujących (silna hermetyzacja),
+  - może powodować eksplozję (niepotrzebny rozrost) klasy,
+  - może spowodować, że normalne wykonywanie programu potraktowane jest jako błąd.
+
+  Głównymi elementami w tym wzorcu są:
+
+  - Client – klient stosuje realizację klasy abstrakcyjnej. Z punktu widzenie klienta nie ma znaczenia, czy realizacja jest obiektem pustym, czy rzeczywistym, ponieważ oba są stosowane w ten sam sposób.
+  - AbstractObject – klasa abstrakcyjna, która może być realizowana przez klasę rzeczywistą lub pustą.
+  - RealObject – rzeczywista realizacja klasy AbstractObject wykonująca konkretne działanie.
+  - NullObject – realizacja klasy AbstractObject, w której nic nie jest wykonywane, w celu zapewnienia dostarczenia niepustego obiektu do klienta.
+
+  Wzorce powiązane
+
+  - Pusty obiekt jako singleton. Klasa NullObject jest często implementowana jako singleton. Zwykle pusty obiekt nie ma żadnego stanu lub stanu nie można zmienić, więc w wielu przypadkach instancje są identyczne. Zamiast używania identycznych instancji w wielu przypadkach wystarczy, że system użyje jednej instancji wielokrotnie.
+  - Pusty obiekt jako szczególny przypadek wzorca strategii. Strategia określa kilka klas ConcreteStrategy jako różne podejścia do realizacji zadania. Jeśli jedno z tych podejść konsekwentnie nic nie wykonuje, to oznacza, że klasą ConcreteStrategy jest klasa NullObject.
+  - Pusty obiekt jako szczególny przypadek wzorca stanu. Jeśli konkretna klasa ConcreteState ze wzorca Stanu realizuje większość swoich metod jako puste (nic nie wykonują) lub przynajmniej zwracają pusty wynik, to wtedy taką klasę określamy jako pusty stan (ang. null state).
+  - Pusty obiekt może być wykorzystany do umożliwienia wzorcowi odwiedzający (ang. visitor) bezpiecznie odwiedzić hierarchię i obsłużyć puste sytuacje (obiekty).
+
 **Observer**
+
+  Obserwator (ang. observer) – wzorzec projektowy należący do grupy wzorców czynnościowych. Używany jest do powiadamiania zainteresowanych obiektów o zmianie stanu pewnego innego obiektu. 
+
+  W programowaniu obiektowym obiekty posiadają pewien stan, tj. zbiór aktualnych wartości pól obiektu, który w wyniku wykonywania na nich operacji może ulegać zmianie. Od bieżącego stanu mogą być zależne inne obiekty, dlatego musi istnieć możliwość ich powiadomienia o jego zmianie tak, aby mogły one się do niej dostosować. Możemy także żądać, aby inne obiekty były powiadamiane o tym, że inny obiekt próbuje wykonać konkretną czynność, np. ponownie nawiązywać utracone połączenie z bazą danych. Pragniemy zaimplementować ogólny mechanizm, który umożliwi nam osiągnięcie tych celów.
+
+  We wzorcu obserwator wyróżniamy dwa podstawowe typy obiektów:
+
+  - obserwowany (ang. observable, subject) - obiekt, o którym chcemy uzyskiwać informacje,
+  - obserwator (ang. observer, listener) - obiekt oczekujący na powiadomienie o zmianie stanu obiektu obserwowanego.
+
+  Kiedy stan obiektu obserwowanego się zmienia, wywołuje on metodę powiadomObserwatorow(), która wysyła powiadomienia do wszystkich zarejestrowanych obserwatorów: 
+
+  Podczas powiadamiania obserwatorzy otrzymują także referencję do obiektu obserwowanego. Jeden obserwator może obserwować kilka innych obiektów, a jeden obiekt obserwowany może być obserwowany przez kilku obserwatorów. Ponieważ oba te typy obiektów zdefiniowane są jako interfejsy do samodzielnej implementacji, obserwatorzy i obserwowani nie muszą się nawzajem znać, a ponadto obiekt obserwowany sam może obserwować inny obiekt.
+
+  Zalety:
+
+  - luźna zależność między obiektem obserwującym i obserwowanym. Ponieważ nie wiedzą one wiele o sobie nawzajem, mogą być niezależnie rozszerzane i rozbudowywane bez wpływu na drugą stronę,
+  - relacja między obiektem obserwowanym a obserwatorem tworzona jest podczas wykonywania programu i może być dynamicznie zmieniana,
+  - domyślnie powiadomienie otrzymują wszystkie obiekty. Obiekt obserwowany jest zwolniony z zarządzania subskrypcją — o tym czy obsłużyć powiadomienie, decyduje sam obserwator.
+
+  Wady:
+
+  - obserwatorzy nie znają innych obserwatorów, co w pewnych sytuacjach może wywołać trudne do znalezienia skutki uboczne.
+
+  Implementacja
+
+  Obserwatorzy często potrzebują informacji o tym, co zostało zmienione w obserwowanym obiekcie. Wiąże się to z przekazaniem metodzie aktualizacja() dodatkowych argumentów. Istnieją dwie podstawowe strategie wyciągania informacji o zmianach:
+
+  - strategia wyciągania (ang. pull model) - obiekt obserwowany przekazuje w argumencie referencję do siebie samego, pozwalając obserwatorom na samodzielne wyciągnięcie niezbędnych informacji.
+  - strategia wpychania (ang. push model) - obiekt obserwowany przygotowuje listę zmian w określonym formacie (najczęściej jako dodatkowy obiekt z określonymi właściwościami) i przekazuje ją jako parametr wywołania obserwatorom.
+
+  Pierwsza strategia wymaga, aby obserwatorzy znali interfejsy obiektów obserwowanych, co zwiększa stopień zależności między nimi i utrudnia ich wielokrotne wykorzystanie. Z kolei w drugim przypadku wymagane jest opracowanie wystarczająco ogólnego formatu opisu zmian, aby był on niezależny od konkretnej sytuacji. Przetwarzanie takich informacji może być bardziej czasochłonne, a obserwatorzy muszą zrealizować swoje zadania bazując jedynie na otrzymanych informacjach.
+
+  Zastosowanie
+
+  Obserwator jest stosowany w aplikacjach z graficznym interfejsem użytkownika. Rozpatrzmy mechanizm kopiowania pliku oraz okienko graficzne obrazujące postęp prac. Mechanizm kopiujący jest niezależny od okienka i nie musi wiedzieć czy i w jaki sposób postępy są wyświetlane. Z drugiej strony, do poprawnego wyświetlania okienko potrzebuje informacji z mechanizmu kopiowania:
+
+  - ile bajtów danych już skopiowano,
+  - kiedy została skopiowana kolejna porcja danych.
+
+  Możemy zaimplementować w mechanizmie kopiowania interfejs Obserwowany, zaś w okienku - Obserwator i skomunikować je ze sobą. Mechanizm kopiowania będzie wywoływać metodę powiadomObserwatorow() po skopiowaniu bloku danych określonej wielkości, co spowoduje wysłanie powiadomienia do okienka i odświeżenie paska postępu.
+
+  Modyfikacje
+
+  Typowa implementacja wzorca Obserwator nie jest odpowiednia do obsługi złożonych aktualizacji. Przykładowo, jeśli obiekt obserwowany musi w ramach aktualizacji zmodyfikować kilka innych obiektów, które mogą być także obserwowane, chcielibyśmy wysłać tylko jedno zbiorcze powiadomienie o wykonaniu całej operacji, zamiast zbioru małych powiadomień od każdego obserwowanego z osobna. Można tu wykorzystać wzorzec Mediator poprzez zaimplementowanie dodatkowej klasy, MenedzerZmian, który będzie implementować konkretną strategię powiadamiania oraz separować obserwatorów i obserwowanych.
 
 **State** 
  
